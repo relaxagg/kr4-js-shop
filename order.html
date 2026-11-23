@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Форма заявки на покупку смартфона или гаджета в магазине TechPoint.">
+  <title>Оформление заявки — TechPoint</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script src="js/data.js" defer></script>
+  <script src="js/cart.js" defer></script>
+  <script src="js/catalog.js" defer></script>
+  <script src="js/validation.js" defer></script>
+  <script src="js/modal.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="site-header__logo" href="index.html">Tech<span class="site-header__logo-accent">Point</span></a>
+      <button type="button" class="button button--secondary menu-toggle" aria-expanded="false" aria-controls="site-nav" hidden>Меню</button>
+      <nav id="site-nav" class="site-nav" aria-label="Основная навигация">
+        <ul class="site-nav__list">
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html">Главная</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="catalog.html">Каталог</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="cart.html">Корзина <span class="cart-counter" id="cart-counter" hidden>0</span></a></li>
+          <li class="site-nav__item"><a class="site-nav__link site-nav__link--active" href="order.html" aria-current="page">Заявка</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="contacts.html">Контакты</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html#advantages">Преимущества</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html#popular">Популярное</a></li>
+        </ul>
+      </nav>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Включить тёмную тему">🌙</button>
+    </div>
+  </header>
+
+  <main class="page-main" id="main" tabindex="-1">
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <a class="breadcrumbs__link" href="index.html">Главная</a>
+      <span class="breadcrumbs__current" aria-current="page">Оформление заявки</span>
+    </nav>
+
+    <section class="section">
+      <h1 class="section__title">Оформление заявки</h1>
+      <p class="section__text">
+        Заполните учебную форму заявки. Поля со звёздочкой обязательны.
+        Проверка выполняется JavaScript, ошибки выводятся рядом с полями.
+      </p>
+    </section>
+
+    <div class="order-layout">
+      <form class="order-form order-form--page" id="order-page-form" action="#" method="post" novalidate>
+        <p class="order-form__summary" role="alert" hidden></p>
+
+        <div class="order-form__field">
+          <label class="order-form__label" for="page-name">Имя <span class="order-form__required" aria-hidden="true">*</span></label>
+          <input class="order-form__input" id="page-name" name="name" type="text" placeholder="Введите ваше имя" autocomplete="given-name" data-validate="name" required>
+        </div>
+
+        <div class="order-form__field">
+          <label class="order-form__label" for="page-email">E-mail <span class="order-form__required" aria-hidden="true">*</span></label>
+          <input class="order-form__input" id="page-email" name="email" type="email" placeholder="example@mail.ru" autocomplete="email" data-validate="email" required>
+        </div>
+
+        <div class="order-form__field">
+          <label class="order-form__label" for="page-phone">Телефон <span class="order-form__required" aria-hidden="true">*</span></label>
+          <input class="order-form__input" id="page-phone" name="phone" type="tel" inputmode="tel" placeholder="+7 (900) 000-00-00" aria-describedby="page-phone-hint" data-validate="phone" required>
+          <small class="order-form__hint" id="page-phone-hint">Формат: +7 (900) 000-00-00</small>
+        </div>
+
+        <div class="order-form__field">
+          <label class="order-form__label" for="page-product">Товар <span class="order-form__required" aria-hidden="true">*</span></label>
+          <select class="order-form__select" id="page-product" name="product" data-validate="product" required>
+            <option value="">Выберите товар</option>
+            <!-- Пункты списка создаёт initOrderPageForm() из массива products -->
+          </select>
+        </div>
+
+        <fieldset class="order-form__fieldset">
+          <legend class="order-form__legend">Способ получения</legend>
+          <label class="order-form__option">
+            <input class="order-form__radio" type="radio" name="delivery" value="pickup" checked>
+            Самовывоз
+          </label>
+          <label class="order-form__option">
+            <input class="order-form__radio" type="radio" name="delivery" value="courier">
+            Курьер по городу
+          </label>
+          <label class="order-form__option">
+            <input class="order-form__radio" type="radio" name="delivery" value="shipping">
+            Транспортная компания
+          </label>
+        </fieldset>
+
+        <div class="order-form__field">
+          <label class="order-form__label" for="page-comment">Комментарий</label>
+          <textarea class="order-form__textarea" id="page-comment" name="comment" rows="4" placeholder="Цвет, объём памяти, удобное время для звонка"></textarea>
+        </div>
+
+        <div class="order-form__field order-form__field--checkbox">
+          <label class="order-form__label">
+            <input class="order-form__checkbox" id="page-agreement" name="agreement" type="checkbox" data-validate="agreement" required>
+            Я подтверждаю, что ввожу учебные данные
+          </label>
+        </div>
+
+        <div class="order-form__actions">
+          <button class="button button--primary" type="submit">Отправить заявку</button>
+          <button class="button button--secondary" type="reset">Очистить</button>
+        </div>
+
+        <p class="order-success" id="order-success" role="status" hidden></p>
+      </form>
+
+      <aside class="order-steps">
+        <h2 class="order-steps__title">Как проходит заказ</h2>
+        <ol class="order-steps__list">
+          <li class="order-steps__item">Вы оставляете заявку на сайте.</li>
+          <li class="order-steps__item">Менеджер перезванивает и подтверждает наличие.</li>
+          <li class="order-steps__item">Согласуем способ и время получения.</li>
+          <li class="order-steps__item">Вы проверяете устройство и оплачиваете при получении.</li>
+        </ol>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="contacts">
+    <div class="site-footer__inner">
+      <div class="site-footer__column">
+        <p class="site-footer__logo">TechPoint</p>
+        <p class="site-footer__text">
+          Смартфоны и гаджеты с проверкой перед продажей и гарантией 30 дней.
+        </p>
+      </div>
+      <nav class="site-footer__column" aria-label="Навигация в футере">
+        <h2 class="site-footer__title">Разделы</h2>
+        <ul class="site-footer__list">
+          <li><a class="site-footer__link" href="catalog.html">Каталог</a></li>
+          <li><a class="site-footer__link" href="cart.html">Корзина</a></li>
+          <li><a class="site-footer__link" href="order.html">Оформить заявку</a></li>
+          <li><a class="site-footer__link" href="contacts.html">Контакты</a></li>
+        </ul>
+      </nav>
+      <div class="site-footer__column">
+        <h2 class="site-footer__title">Связаться</h2>
+        <p class="site-footer__text">+7 (900) 000-00-00</p>
+        <p class="site-footer__text">info@techpoint.example</p>
+        <p class="site-footer__text">Ежедневно 10:00–20:00</p>
+      </div>
+    </div>
+    <p class="site-footer__bottom">
+      &copy; 2026 TechPoint. Учебный проект по дисциплине «Фронтенд и бэкенд разработка». Цены указаны для примера.
+      <a class="site-footer__link site-footer__top" href="#">Наверх ↑</a>
+    </p>
+  </footer>
+
+  <p class="success-message" id="success-message" role="status" hidden></p>
+</body>
+</html>
