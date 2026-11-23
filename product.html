@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Страница товара магазина TechPoint: характеристики, цена и оформление заявки.">
+  <title>Товар — TechPoint</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script src="js/data.js" defer></script>
+  <script src="js/cart.js" defer></script>
+  <script src="js/catalog.js" defer></script>
+  <script src="js/validation.js" defer></script>
+  <script src="js/modal.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="site-header__logo" href="index.html">Tech<span class="site-header__logo-accent">Point</span></a>
+      <button type="button" class="button button--secondary menu-toggle" aria-expanded="false" aria-controls="site-nav" hidden>Меню</button>
+      <nav id="site-nav" class="site-nav" aria-label="Основная навигация">
+        <ul class="site-nav__list">
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html">Главная</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="catalog.html">Каталог</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="cart.html">Корзина <span class="cart-counter" id="cart-counter" hidden>0</span></a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="order.html">Заявка</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="contacts.html">Контакты</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html#advantages">Преимущества</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html#popular">Популярное</a></li>
+        </ul>
+      </nav>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Включить тёмную тему">🌙</button>
+    </div>
+  </header>
+
+  <main class="page-main" id="main" tabindex="-1">
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <a class="breadcrumbs__link" href="index.html">Главная</a>
+      <a class="breadcrumbs__link breadcrumbs__link--middle" href="catalog.html">Каталог</a>
+      <span class="breadcrumbs__current" id="product-crumb" aria-current="page">Товар</span>
+    </nav>
+
+    <!-- Содержимое заполняет renderProductPage() по параметру ?id=N -->
+    <article class="product-page" id="product-page">
+      <div class="product-page__gallery" id="product-gallery"></div>
+      <div class="product-page__info" id="product-info"></div>
+    </article>
+
+    <div class="catalog-empty" id="product-not-found" hidden>
+      <span class="catalog-empty__icon" aria-hidden="true">🤔</span>
+      <h1 class="catalog-empty__title">Товар не найден</h1>
+      <p class="catalog-empty__text">Возможно, ссылка устарела или товар закончился. Вернитесь в каталог и выберите устройство из списка.</p>
+      <div class="catalog-empty__actions">
+        <a class="button button--primary" href="catalog.html">Вернуться в каталог</a>
+      </div>
+    </div>
+
+    <section class="section" id="product-specs-section">
+      <table class="product-table">
+        <caption class="product-table__caption">Характеристики товара</caption>
+        <thead>
+          <tr>
+            <th class="product-table__head-cell" scope="col">Параметр</th>
+            <th class="product-table__head-cell" scope="col">Значение</th>
+          </tr>
+        </thead>
+        <tbody id="product-specs"></tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2 class="section__title">Что мы проверили перед продажей</h2>
+      <ul class="check-list">
+        <li class="check-list__item">Экран и сенсор</li>
+        <li class="check-list__item">Все камеры и вспышка</li>
+        <li class="check-list__item">Динамики и микрофоны</li>
+        <li class="check-list__item">Wi‑Fi, Bluetooth, NFC</li>
+        <li class="check-list__item">Связь и SIM-лоток</li>
+        <li class="check-list__item">Зарядка и ёмкость батареи</li>
+        <li class="check-list__item">Кнопки и вибромотор</li>
+        <li class="check-list__item">Отсутствие блокировок аккаунтов</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contacts">
+    <div class="site-footer__inner">
+      <div class="site-footer__column">
+        <p class="site-footer__logo">TechPoint</p>
+        <p class="site-footer__text">
+          Смартфоны и гаджеты с проверкой перед продажей и гарантией 30 дней.
+        </p>
+      </div>
+      <nav class="site-footer__column" aria-label="Навигация в футере">
+        <h2 class="site-footer__title">Разделы</h2>
+        <ul class="site-footer__list">
+          <li><a class="site-footer__link" href="catalog.html">Каталог</a></li>
+          <li><a class="site-footer__link" href="cart.html">Корзина</a></li>
+          <li><a class="site-footer__link" href="order.html">Оформить заявку</a></li>
+          <li><a class="site-footer__link" href="contacts.html">Контакты</a></li>
+        </ul>
+      </nav>
+      <div class="site-footer__column">
+        <h2 class="site-footer__title">Связаться</h2>
+        <p class="site-footer__text">+7 (900) 000-00-00</p>
+        <p class="site-footer__text">info@techpoint.example</p>
+        <p class="site-footer__text">Ежедневно 10:00–20:00</p>
+      </div>
+    </div>
+    <p class="site-footer__bottom">
+      &copy; 2026 TechPoint. Учебный проект по дисциплине «Фронтенд и бэкенд разработка». Цены указаны для примера.
+      <a class="site-footer__link site-footer__top" href="#">Наверх ↑</a>
+    </p>
+  </footer>
+
+  <p class="success-message" id="success-message" role="status" hidden></p>
+</body>
+</html>
