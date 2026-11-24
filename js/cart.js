@@ -1,21 +1,15 @@
-/* ===============================
-   cart.js — корзина, избранное и промокоды
-   Состояние хранится в localStorage и переживает перезагрузку.
-   Об изменении состояния модуль сообщает событием 'cart:changed',
-   на которое подписываются счётчик в шапке и страница корзины.
-   =============================== */
 
 const CART_STORAGE_KEY = 'techpoint-cart';
 const FAVORITES_STORAGE_KEY = 'techpoint-favorites';
 const PROMO_STORAGE_KEY = 'techpoint-promo';
 
-/* Промокоды и размер скидки. */
+
 const PROMO_CODES = {
   TECH10: 0.10,
   STUDENT15: 0.15
 };
 
-/* ---------- Чтение и запись состояния ---------- */
+
 
 function readJsonStorage(key, fallback) {
   try {
@@ -30,7 +24,7 @@ function writeJsonStorage(key, value) {
   try {
     localStorage.setItem(key, JSON.stringify(value));
   } catch (error) {
-    /* localStorage может быть недоступен (приватный режим) — работаем без сохранения. */
+
   }
 }
 
@@ -38,13 +32,9 @@ function notifyCartChanged() {
   document.dispatchEvent(new CustomEvent('cart:changed'));
 }
 
-/* ---------- Корзина ---------- */
-
-/* Корзина — массив позиций вида { id, quantity }. */
 function getCart() {
   const stored = readJsonStorage(CART_STORAGE_KEY, []);
   if (!Array.isArray(stored)) return [];
-  /* Оставляем только корректные позиции с существующими товарами. */
   return stored.filter((item) =>
     item && getProductById(item.id) && Number.isInteger(item.quantity) && item.quantity > 0
   );
@@ -88,12 +78,11 @@ function clearCart() {
   saveCart([]);
 }
 
-/* Общее количество товаров для счётчика в шапке. */
+
 function getCartCount() {
   return getCart().reduce((sum, item) => sum + item.quantity, 0);
 }
 
-/* Позиции корзины вместе с данными товаров. */
 function getCartItems() {
   return getCart().map((item) => ({
     product: getProductById(item.id),
@@ -101,7 +90,6 @@ function getCartItems() {
   }));
 }
 
-/* ---------- Промокод ---------- */
 
 function getAppliedPromo() {
   const code = readJsonStorage(PROMO_STORAGE_KEY, '');
@@ -126,7 +114,6 @@ function applyPromo(code) {
   return { ok: false, message: 'Такого промокода нет. Попробуйте TECH10.' };
 }
 
-/* Расчёт суммы корзины через reduce. */
 function calculateCartTotals() {
   const items = getCartItems();
   const subtotal = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
@@ -135,7 +122,6 @@ function calculateCartTotals() {
   return { subtotal, discount, total: subtotal - discount, promo };
 }
 
-/* ---------- Избранное ---------- */
 
 function getFavorites() {
   const stored = readJsonStorage(FAVORITES_STORAGE_KEY, []);
@@ -159,7 +145,6 @@ function toggleFavorite(productId) {
   return favorites.includes(productId);
 }
 
-/* ---------- Страница корзины ---------- */
 
 function createCartRow(item) {
   const { product, quantity } = item;
@@ -272,7 +257,6 @@ function initCartPage() {
   const itemsContainer = document.querySelector('#cart-items');
   if (!itemsContainer) return;
 
-  /* Делегирование: один обработчик на все кнопки внутри списка. */
   itemsContainer.addEventListener('click', (event) => {
     const button = event.target.closest('button[data-action]');
     if (!button) return;

@@ -1,9 +1,3 @@
-/* ===============================
-   catalog.js — вывод товаров средствами JavaScript
-   Генерация карточек, поиск, фильтрация, сортировка,
-   пустое состояние, популярные товары и страница товара.
-   Все данные выводятся через textContent (без innerHTML).
-   =============================== */
 
 const BADGE_LABELS = {
   sale: 'Скидка',
@@ -11,10 +5,6 @@ const BADGE_LABELS = {
   new: 'Новинка'
 };
 
-/* ---------- Карточка товара ---------- */
-
-/* Создаёт карточку через createElement / textContent / classList / append.
-   mode: 'catalog' — кнопка «В корзину», 'popular' — кнопка «Заказать». */
 function createProductCard(product, mode = 'catalog') {
   const card = document.createElement('article');
   card.classList.add('product-card');
@@ -124,10 +114,6 @@ function createProductCard(product, mode = 'catalog') {
   return card;
 }
 
-/* ---------- Общие обработчики карточек ---------- */
-
-/* Делегирование событий: один обработчик ловит клики по кнопкам
-   «В корзину» и «избранное» внутри контейнера с карточками. */
 function attachCardHandlers(container) {
   container.addEventListener('click', (event) => {
     const addButton = event.target.closest('[data-add-to-cart]');
@@ -168,8 +154,6 @@ function attachCardHandlers(container) {
   });
 }
 
-/* ---------- Каталог: поиск, фильтр, сортировка ---------- */
-
 function initCatalog() {
   const grid = document.querySelector('#catalog-grid');
   if (!grid) return;
@@ -184,7 +168,6 @@ function initCatalog() {
   const emptyQuery = document.querySelector('#catalog-empty-query');
   const resetButtons = document.querySelectorAll('[data-reset-filters]');
 
-  /* Заполняем фильтр категориями из данных, чтобы значения всегда совпадали. */
   Object.entries(CATEGORIES).forEach(([value, label]) => {
     const option = document.createElement('option');
     option.value = value;
@@ -207,7 +190,6 @@ function initCatalog() {
       return matchesQuery && matchesCategory && matchesAvailability && matchesFavorites;
     });
 
-    /* Сортируем копию массива, чтобы не менять исходный порядок данных. */
     const sorted = [...filtered];
     switch (sortSelect.value) {
       case 'price-asc':
@@ -263,7 +245,6 @@ function initCatalog() {
   favoritesCheckbox.addEventListener('change', renderCatalog);
   resetButtons.forEach((button) => button.addEventListener('click', resetFilters));
 
-  /* Если избранное изменилось на другой странице — обновляем фильтр. */
   document.addEventListener('favorites:changed', () => {
     if (favoritesCheckbox.checked) renderCatalog();
   });
@@ -272,7 +253,6 @@ function initCatalog() {
   renderCatalog();
 }
 
-/* ---------- Популярные товары на главной ---------- */
 
 function renderPopularProducts() {
   const grid = document.querySelector('#popular-grid');
@@ -288,7 +268,6 @@ function renderPopularProducts() {
   attachCardHandlers(grid);
 }
 
-/* ---------- Страница товара (product.html?id=N) ---------- */
 
 function renderProductPage() {
   const page = document.querySelector('#product-page');

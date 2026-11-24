@@ -1,12 +1,4 @@
-/* ===============================
-   validation.js — базовая валидация форм
-   Ошибки выводятся на страницу рядом с полями через textContent,
-   alert() не используется. Отправка формы имитируется: кнопка
-   блокируется, затем появляется сообщение об успехе и форма очищается.
-   =============================== */
 
-/* Правила проверки. Ключ — значение атрибута data-validate у поля.
-   Функция возвращает текст ошибки или пустую строку, если поле корректно. */
 const VALIDATORS = {
   name(value) {
     const trimmed = value.trim();
@@ -43,8 +35,6 @@ const VALIDATORS = {
   }
 };
 
-/* ---------- Вывод ошибки рядом с полем ---------- */
-
 function getFieldErrorElement(input) {
   const field = input.closest('.order-form__field');
   if (!field) return null;
@@ -67,7 +57,6 @@ function setFieldError(input, message) {
   input.classList.add('order-form__input--invalid');
   input.setAttribute('aria-invalid', 'true');
   if (error) {
-    /* Сохраняем исходные подсказки (например, формат телефона). */
     if (input.dataset.baseDescribedby === undefined) {
       input.dataset.baseDescribedby = input.getAttribute('aria-describedby') || '';
     }
@@ -115,16 +104,12 @@ function validateForm(form) {
   return firstInvalid;
 }
 
-/* ---------- Общая логика формы с имитацией отправки ---------- */
 
-/* options.onSuccess(form) вызывается после «отправки».
-   options.successText — текст для блока .order-form__summary, если он есть. */
 function initValidatedForm(form, options = {}) {
   const fields = form.querySelectorAll('[data-validate]');
   const summary = form.querySelector('.order-form__summary');
   const submitButton = form.querySelector('[type="submit"]');
 
-  /* Ошибка исчезает, как только пользователь исправляет поле. */
   fields.forEach((input) => {
     const eventName = input.type === 'checkbox' || input.tagName === 'SELECT' ? 'change' : 'input';
     input.addEventListener(eventName, () => {
@@ -149,7 +134,6 @@ function initValidatedForm(form, options = {}) {
 
     if (summary) summary.hidden = true;
 
-    /* Имитация отправки: блокируем кнопку и показываем процесс. */
     const originalText = submitButton.textContent;
     submitButton.disabled = true;
     submitButton.textContent = 'Отправка…';
@@ -157,7 +141,6 @@ function initValidatedForm(form, options = {}) {
     setTimeout(() => {
       submitButton.disabled = false;
       submitButton.textContent = originalText;
-      /* Данные формы читаем до очистки и передаём в onSuccess. */
       const data = new FormData(form);
       form.reset();
       fields.forEach(clearFieldError);
@@ -172,8 +155,6 @@ function initValidatedForm(form, options = {}) {
   });
 }
 
-/* ---------- Форма заявки на order.html ---------- */
-
 function initOrderPageForm() {
   const form = document.querySelector('#order-page-form');
   if (!form) return;
@@ -181,7 +162,6 @@ function initOrderPageForm() {
   const productSelect = form.querySelector('#page-product');
   const successBlock = document.querySelector('#order-success');
 
-  /* Список товаров строится из массива products, а не вручную в HTML. */
   products.forEach((product) => {
     const option = document.createElement('option');
     option.value = String(product.id);
@@ -197,7 +177,6 @@ function initOrderPageForm() {
   otherOption.textContent = 'Другая модель (укажу в комментарии)';
   productSelect.append(otherOption);
 
-  /* Предвыбор товара из ссылки вида order.html?product=3. */
   const params = new URLSearchParams(window.location.search);
   const productFromUrl = params.get('product');
   if (productFromUrl && productSelect.querySelector(`option[value="${CSS.escape(productFromUrl)}"]`)) {
@@ -221,7 +200,6 @@ function initOrderPageForm() {
   });
 }
 
-/* ---------- Форма обратной связи на contacts.html ---------- */
 
 function initFeedbackForm() {
   const form = document.querySelector('#feedback-form');

@@ -1,31 +1,11 @@
-/* ===============================
-   data.js — данные магазина TechPoint
-   Массив товаров и вспомогательные функции для работы с ними.
-   =============================== */
 
-/* Категории каталога. Значения ключей совпадают со значениями
-   фильтра на странице catalog.html. */
 const CATEGORIES = {
   phones: 'Смартфоны',
   headphones: 'Наушники',
   accessories: 'Аксессуары'
 };
 
-/* Единая структура товара:
-   id          — уникальный числовой идентификатор;
-   title       — название (по нему работает поиск);
-   category    — ключ категории из CATEGORIES;
-   price       — цена числом, в рублях;
-   isAvailable — наличие (true / false);
-   oldPrice    — старая цена для бейджа «Скидка» (null, если скидки нет);
-   badge       — тип бейджа: 'sale' | 'hit' | 'new' | null;
-   rating      — рейтинг товара;
-   brand       — бренд;
-   description — короткое описание для карточки;
-   image       — путь к фотографии;
-   imageAlt    — описание фотографии для alt;
-   features    — список преимуществ для страницы товара;
-   specs       — характеристики для таблицы на странице товара. */
+
 const products = [
   {
     id: 1,
@@ -317,17 +297,16 @@ const products = [
   }
 ];
 
-/* Поиск товара по уникальному id. */
+
 function getProductById(id) {
   return products.find((product) => product.id === id);
 }
 
-/* Форматирование цены: 64990 -> «64 990 ₽». */
+
 function formatPrice(value) {
   return value.toLocaleString('ru-RU') + ' ₽';
 }
 
-/* Склонение слов: pluralize(3, ['товар', 'товара', 'товаров']) -> «товара». */
 function pluralize(count, forms) {
   const tens = count % 100;
   const units = count % 10;

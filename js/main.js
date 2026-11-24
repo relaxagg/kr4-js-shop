@@ -1,12 +1,3 @@
-/* ===============================
-   main.js — общая инициализация проекта
-   Мобильное меню, тёмная тема, счётчик корзины в шапке,
-   всплывающие сообщения и запуск модулей страниц.
-   Каждый блок проверяет наличие элементов, поэтому скрипт
-   не падает на страницах, где этих элементов нет.
-   =============================== */
-
-/* ---------- Всплывающее сообщение (вместо alert) ---------- */
 
 let statusTimer;
 
@@ -21,8 +12,6 @@ function showStatusMessage(text) {
     message.hidden = true;
   }, 4000);
 }
-
-/* ---------- Мобильное меню ---------- */
 
 function initMenu() {
   const menuToggle = document.querySelector('.menu-toggle');
@@ -55,7 +44,6 @@ function initMenu() {
   });
 }
 
-/* ---------- Тёмная тема ---------- */
 
 const THEME_STORAGE_KEY = 'techpoint-theme';
 
@@ -76,7 +64,7 @@ function initTheme() {
   try {
     saved = localStorage.getItem(THEME_STORAGE_KEY) || 'light';
   } catch (error) {
-    /* localStorage недоступен — остаёмся на светлой теме. */
+
   }
   applyTheme(saved);
 
@@ -88,13 +76,11 @@ function initTheme() {
       try {
         localStorage.setItem(THEME_STORAGE_KEY, next);
       } catch (error) {
-        /* Без сохранения тема работает до перезагрузки. */
       }
     });
   }
 }
 
-/* ---------- Счётчик корзины в шапке ---------- */
 
 function updateCartCounter() {
   const counter = document.querySelector('#cart-counter');
@@ -110,7 +96,6 @@ function initCartCounter() {
   document.addEventListener('cart:changed', updateCartCounter);
 }
 
-/* ---------- Запуск модулей ---------- */
 
 initMenu();
 initTheme();

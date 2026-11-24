@@ -1,9 +1,3 @@
-/* ===============================
-   modal.js — модальное окно заявки
-   Нативный <dialog>: открывается кнопкой «Заказать» на карточке
-   популярного товара, закрывается кнопкой и клавишей Escape.
-   Валидацию формы выполняет validation.js.
-   =============================== */
 
 function initOrderDialog() {
   const dialog = document.querySelector('#order-dialog');
@@ -14,8 +8,6 @@ function initOrderDialog() {
   const selectedInput = dialog.querySelector('#selected-product');
   const closeButton = dialog.querySelector('#close-order-dialog');
 
-  /* Делегирование: кнопки «Заказать» создаются динамически,
-     поэтому обработчик один на весь документ. */
   document.addEventListener('click', (event) => {
     const orderButton = event.target.closest('[data-order-id]');
     if (!orderButton) return;
@@ -32,7 +24,6 @@ function initOrderDialog() {
     dialog.close();
   });
 
-  /* Клик по затемнённому фону закрывает окно. */
   dialog.addEventListener('click', (event) => {
     if (event.target === dialog) dialog.close();
   });
